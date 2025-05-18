@@ -1,0 +1,19 @@
+services:
+  python:
+    restart: no
+    image: ghcr.io/nicolas-mahe/ansible-home:${DOCKER_TAG:-main}
+    container_name: ansible-home
+    hostname: ansible-home
+    environment:
+      PUID: 1000
+      PGID: 100
+      TZ: Europe/Paris
+    volumes:
+      - /${DOCKER_DATA_DIRECTORY:?data path is required}/repos/home-docker/timezone:/etc/timezone:ro
+      - /${DOCKER_DATA_DIRECTORY:?data path is required}/docker/docker-data/ansible-home/inventories:/inventories
+    network_mode: "host"
+    command:       
+      - sh
+      - -c
+      - > 
+        tail -f /dev/null

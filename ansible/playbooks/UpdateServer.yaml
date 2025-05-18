@@ -1,0 +1,23 @@
+---
+    - name: Mise à jour des systèmes Debian
+      hosts: debian
+      become: true
+      tasks:
+        - name: Mise à jour du cache apt
+          ansible.builtin.apt:
+            update_cache: yes
+            cache_valid_time: 3600
+    
+        - name: Mise à jour des paquets
+          ansible.builtin.apt:
+            upgrade: dist
+            force_apt_get: yes
+    
+        - name: Suppression des paquets obsolètes
+          ansible.builtin.apt:
+            autoremove: yes
+            purge: yes
+    
+        - name: Nettoyage du cache apt
+          ansible.builtin.apt:
+            autoclean: yes
