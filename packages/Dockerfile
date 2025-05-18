@@ -1,6 +1,6 @@
 FROM python:3.11-slim
 
-# Dépendances système minimales
+# Minimal system dependencies
 RUN apt-get update && apt-get install -y \
     sshpass \
     git \
@@ -8,24 +8,24 @@ RUN apt-get update && apt-get install -y \
     iputils-ping \
     && rm -rf /var/lib/apt/lists/*
 
-# Installer Ansible
+# Install Ansible
 RUN pip install --no-cache-dir ansible
 
-# Définir le dossier de travail
+# Set working directory
 WORKDIR /ansible
 
-# Copier playbooks, rôles, etc.
+# Copy needed files
 COPY ansible/ /ansible/
 COPY python/ /python/
 COPY packages/entrypoint.sh /run/entrypoint.sh
 
+# Prepare environnement
 RUN chmod +x /run/entrypoint.sh
+RUN ansible-galaxy install -r /ansible/requirements.txt || true
+RUN pip install -r /python/requirements.txt || true
 
-# Installer les dépendances Ansible si besoin
-RUN ansible-galaxy install -r requirements.txt || true
-
-# Volume pour l'inventaire (SSH, host_vars, etc.)
+# Volume for inventories
 VOLUME /inventories
 
-# Point d'entrée
+# Entrypoint
 ENTRYPOINT [ "/run/entrypoint.sh" ]
