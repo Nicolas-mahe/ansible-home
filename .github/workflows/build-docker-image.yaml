@@ -4,10 +4,11 @@ on:
   push:
     branches:
       - main
-    # paths-ignore:
-    #   - 'packages/**'
-    #   - '.**'
-    #   - '.*/**'
+    paths-ignore:
+      - 'packages/**'
+      - '.**'
+      - '.*/**'
+      - 'README.md'
 
 jobs:
   build:
