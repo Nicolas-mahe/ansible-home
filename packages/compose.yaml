@@ -8,6 +8,7 @@ services:
       PUID: 1000
       PGID: 100
       TZ: Europe/Paris
+      ANSIBLE_VERBOSITY: ${ANSIBLE_VERBOSITY}
     volumes:
       - /${DOCKER_DATA_DIRECTORY:?data path is required}/repos/home-docker/timezone:/etc/timezone:ro
       - /${DOCKER_DATA_DIRECTORY:?data path is required}/docker/docker-data/ansible-home/inventories:/inventories:ro
