@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y \
     sshpass \
     git \
     openssh-client \
+    iputils-ping \
     && rm -rf /var/lib/apt/lists/*
 
 # Installer Ansible
