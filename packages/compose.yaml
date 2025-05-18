@@ -11,9 +11,4 @@ services:
     volumes:
       - /${DOCKER_DATA_DIRECTORY:?data path is required}/repos/home-docker/timezone:/etc/timezone:ro
       - /${DOCKER_DATA_DIRECTORY:?data path is required}/docker/docker-data/ansible-home/inventories:/inventories:ro
-    network_mode: "host"
-    command:       
-      - sh
-      - -c
-      - > 
-        tail -f /dev/null
+

@@ -11,12 +11,15 @@ RUN apt-get update && apt-get install -y \
 # Installer Ansible
 RUN pip install --no-cache-dir ansible
 
+# Définir le dossier de travail
+WORKDIR /ansible
+
 # Copier playbooks, rôles, etc.
 COPY ansible/ /ansible/
 COPY python/ /python/
+COPY packages/entrypoint.sh /run/entrypoint.sh
 
-# Définir le dossier de travail
-WORKDIR /ansible
+RUN chmod +x /run/entrypoint.sh
 
 # Installer les dépendances Ansible si besoin
 RUN ansible-galaxy install -r requirements.txt || true
@@ -25,5 +28,4 @@ RUN ansible-galaxy install -r requirements.txt || true
 VOLUME /inventories
 
 # Point d'entrée
-# ENTRYPOINT [ "ansible-playbook" ]
-# CMD [ "--version" ]
+ENTRYPOINT [ "/run/entrypoint.sh" ]

@@ -1,6 +1,5 @@
 *.env
 .env
 .venv
-packages/
 .github/
 inventories/
