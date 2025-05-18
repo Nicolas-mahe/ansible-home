@@ -2,6 +2,7 @@
     - name: Update Debian system(s)
       hosts: debian
       become: true
+      gather_facts: false
       tasks:
         - name: Update apt cache
           ansible.builtin.apt:
@@ -25,6 +26,7 @@
     - name: Update Alpine system(s)
       hosts: alpine
       become: true
+      gather_facts: false
       tasks:
         - name: Update apk cache
           ansible.builtin.apk:
@@ -36,6 +38,7 @@
 
     - name: Update Windows system(s)
       hosts: windows
+      gather_facts: false
       tasks:
         - name: Check for Windows updates
           ansible.windows.win_updates:
