@@ -1,0 +1,9 @@
+- name: Set ansible_host
+  ansible.builtin.set_fact:
+    ansible_host: "{{ (get_host_info_network_prefix ~ '.' ~ get_host_info_vlan_id ~ '.' ~ (get_host_info_ip_address | int )) if inventory_hostname | length >= 10 else '0.0.0.0' | ansible.utils.ipaddr('address') }}"
+  when: ansible_host is '0.0.0.0' or ansible_host is none
+
+- name: Set ansible_port
+  ansible.builtin.set_fact:
+    ansible_port: 6336
+  when: ansible_port is none

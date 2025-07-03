@@ -3,3 +3,4 @@
 .venv
 .vault
 inventories/
+id_rsa

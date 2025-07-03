@@ -5,10 +5,8 @@ services:
     container_name: ansible-home
     hostname: ansible-home
     environment:
-      PUID: 1000
-      PGID: 100
       TZ: Europe/Paris
-      ANSIBLE_VERBOSITY: ${ANSIBLE_VERBOSITY}
+      ANSIBLE_VERBOSITY: ${ANSIBLE_VERBOSITY:-1}
     volumes:
       - /${DOCKER_DATA_DIRECTORY:?data path is required}/docker/docker-data/ansible-home/inventories:/inventories:ro
-      - /${DOCKER_DATA_DIRECTORY:?data path is required}/docker/docker-data/ansible-home/.vault:/ansible/.vault:ro
+      - /${DOCKER_DATA_DIRECTORY:?data path is required}/docker/docker-data/ansible-home/.vault:/.vault:ro

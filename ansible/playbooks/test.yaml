@@ -1,0 +1,26 @@
+--- 
+- name: Set Host vars
+  hosts: all:!proxmox_nodes
+  gather_facts: false
+  tasks:
+    - name: recover host & ssh port
+      ansible.builtin.include_role:
+        name: get_host_info
+      when: ansible_port is not defined or ansible_host is not defined
+    - name: display inventory vars
+      debug:
+        var: hostvars[inventory_hostname]
+
+- name: Test ssh connection
+  hosts: all:!proxmox_nodes
+  gather_facts: false
+  tasks:
+    - name: Afficher ansible host
+      debug:
+        var: ansible_host
+    - name: Afficher ansible port
+      debug:
+        var: ansible_port
+    - name: ping
+      ping:
+      when: proxmox_status is defined and proxmox_status == 'running'
