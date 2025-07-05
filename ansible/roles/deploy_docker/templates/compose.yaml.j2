@@ -1,0 +1,13 @@
+services:
+  python:
+    restart: unless-stopped
+    image: {{ deploy_docker_registry_addr }}:{{ deploy_docker_registry_port }}/volcano-solutions/prod/{{ deploy_docker_project_name }}:{{ deploy_docker_docker_tag | default('latest') }}
+    container_name: {{ deploy_docker_project_name }}
+    hostname: {{ deploy_docker_project_name }}
+    environment:
+      TZ: {{ deploy_docker_timezone | default('Europe/Paris') }}
+      SECRET_KEY: {{ deploy_docker_secret_key | default('REPLACE_ME_WITH_A_SECRET_KEY') }}
+      DEBUG: {{ deploy_docker_debug | default(false) }}
+      DOMAIN: {{ deploy_docker_domain | default('REPLACE_ME_WITH_A_DOMAIN_NAME') }}
+    ports:
+      - "{{ deploy_docker_app_port | default(5000) }}:5000"

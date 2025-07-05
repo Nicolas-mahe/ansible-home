@@ -2,8 +2,13 @@ FROM python:3.11-slim
 
 # Minimal system dependencies
 RUN apt-get update && apt-get install -y \
+    curl \
+    gnupg \
+    ca-certificates \
+    lsb-release \
     sshpass \
     git \
+    nano \
     openssh-client \
     iputils-ping \
     && rm -rf /var/lib/apt/lists/*
@@ -18,9 +23,8 @@ COPY packages/entrypoint.sh /ansible/entrypoint.sh
 
 # Prepare environnement
 RUN chmod +x /ansible/entrypoint.sh
-RUN pip install --no-cache-dir ansible pywinrm
-RUN ansible-galaxy install -r /ansible/requirements.txt || true
-RUN pip install -r /python/requirements.txt || true
+RUN pip install --no-cache-dir -r /python/requirements.txt
+RUN ansible-galaxy install -r /ansible/requirements.yaml
 
 # Entrypoint
 ENTRYPOINT [ "/ansible/entrypoint.sh" ]
