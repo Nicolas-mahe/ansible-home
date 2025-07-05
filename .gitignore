@@ -2,5 +2,4 @@
 .env
 .venv
 .vault
-inventories/
-id_rsa
+.id_rsa

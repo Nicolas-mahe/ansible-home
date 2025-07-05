@@ -1,0 +1,11 @@
+---
+plugin: community.general.proxmox
+url: https://192.168.1.2:8006
+want_facts: true
+validate_certs: false
+user: automation@pve
+password: 'nerqMYRSPoq7Zg4pZ4rnJgTXD26yDSb2xWwjW6ffhBK44C7wujL4HP7oXNE4V8Fm' #"{{ proxmox_password }}"
+want_proxmox_nodes_ansible_host: false
+compose:
+  ansible_host: ('192.168.' ~ inventory_hostname[5] ~ '.' ~ (inventory_hostname[6:9] | int )) if inventory_hostname | length >= 10 else '0.0.0.0' | ansible.utils.ipaddr('address')
+  ansible_port: 6336 if 'ssh_custom' in proxmox_tags else 22

@@ -7,9 +7,9 @@
       ansible.builtin.include_role:
         name: get_host_info
       when: ansible_port is not defined or ansible_host is not defined
-    - name: display inventory vars
-      debug:
-        var: hostvars[inventory_hostname]
+    # - name: display inventory vars
+    #   debug:
+    #     var: hostvars[inventory_hostname]
 
 - name: Test ssh connection
   hosts: all:!proxmox_nodes

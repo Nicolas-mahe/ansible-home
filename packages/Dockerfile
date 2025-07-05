@@ -12,18 +12,15 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /ansible
 
 # Copy needed files
-COPY ansible/ /ansible/
-COPY python/ /python/
-COPY packages/entrypoint.sh /run/entrypoint.sh
+COPY ansible /ansible
+COPY python /python
+COPY packages/entrypoint.sh /ansible/entrypoint.sh
 
 # Prepare environnement
-RUN chmod +x /run/entrypoint.sh
+RUN chmod +x /ansible/entrypoint.sh
 RUN pip install --no-cache-dir ansible pywinrm
 RUN ansible-galaxy install -r /ansible/requirements.txt || true
 RUN pip install -r /python/requirements.txt || true
 
-# Volume for inventories
-VOLUME /inventories
-
 # Entrypoint
-ENTRYPOINT [ "/run/entrypoint.sh" ]
+ENTRYPOINT [ "/ansible/entrypoint.sh" ]

@@ -8,5 +8,5 @@ services:
       TZ: Europe/Paris
       ANSIBLE_VERBOSITY: ${ANSIBLE_VERBOSITY:-1}
     volumes:
-      - /${DOCKER_DATA_DIRECTORY:?data path is required}/docker/docker-data/ansible-home/inventories:/inventories:ro
-      - /${DOCKER_DATA_DIRECTORY:?data path is required}/docker/docker-data/ansible-home/.vault:/.vault:ro
+      - ${ANSIBLE_SSH_KEY_DIRECTORY:?ssh key path is required}:/ansible/.id_rsa:ro
+      - ${ANSIBLE_VAULT_DIRECTORY:?vault path is required}:/ansible/.vault:ro

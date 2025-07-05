@@ -17,6 +17,7 @@ else
     VERBOSITY="-v"
 fi
 
-ansible-playbook playbooks/UpdateServer.yaml $VERBOSITY
+ansible --version
+#ansible-playbook playbooks/UpdateServer.yaml $VERBOSITY
 
 tail -f /dev/null
